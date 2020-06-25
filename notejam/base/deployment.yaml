@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notejam
+  labels:
+    app: notejam
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: notejam
+  template:
+    metadata:
+      labels:
+        app: notejam
+    spec:
+      containers:
+      - name: notejam
+        image: r0bnet/notejam:0.0.1-express
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "300m"
+          limits:
+            memory: "512Mi"
+            cpu: "750m"
+        envFrom:
+        - configMapRef:
+            name: config
